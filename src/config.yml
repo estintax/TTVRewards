@@ -6,6 +6,8 @@ rewards:
     effect:
       id: slowness
       duration: 60
+options:
+  useDisplayName: true
 players:
   - Estintax:estintax
 strings:
