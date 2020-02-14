@@ -9,16 +9,14 @@ import java.util.Map;
 
 public class TMI extends Thread {
     public static Socket sock;
-    private static BufferedReader in;
-    private static PrintWriter out;
 
     @Override
     public void run() {
         System.out.println("Initializing TMI...");
         try {
             sock = new Socket("irc.chat.twitch.tv", 6667);
-            in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-            out = new PrintWriter(sock.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+            PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
 
             // Auth, joining channels and request cap
             out.println("NICK justinfan42");
@@ -31,13 +29,12 @@ public class TMI extends Thread {
                 Main.joinedChannels.add(channel);
             }
 
-            while (true) {
-                if(sock.isClosed()) break;
+            while (!sock.isClosed()) {
                 String str = in.readLine();
-                if(str == null) continue;
+                if (str == null) continue;
 
                 String[] preParseParams = str.split(" ");
-                if(preParseParams[0].equals("PING")) {
+                if (preParseParams[0].equals("PING")) {
                     out.println("PONG " + preParseParams[1]);
                     continue;
                 }
@@ -46,13 +43,13 @@ public class TMI extends Thread {
                 args[0] = args[0].replace(" ", "");
                 str = String.join(":", args);
                 String[] params = str.split(" ");
-                if(params[1].equals("PRIVMSG")) {
+                if (params[1].equals("PRIVMSG")) {
                     String channel = params[2].replace("#", "");
                     String username = args[1].split("!")[0];
                     String message = args[2];
 
                     Map<String, String> tags = Utils.parseTags(params[0].replace("@", ""));
-                    String displayName = Main.config.getBoolean("options.useDisplayName")?tags.get("display-name"):username;
+                    String displayName = Main.config.getBoolean("options.useDisplayName") ? tags.get("display-name") : username;
                     if (tags.get("custom-reward-id") != null) {
                         System.out.println("Found message with reward");
                     }
