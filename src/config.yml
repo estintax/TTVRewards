@@ -1,0 +1,14 @@
+---
+rewards:
+  9653654c-240b-41ca-8c66-9212b3e2e75b:
+    name: Замедление
+    action: effect
+    effect:
+      id: slowness
+      duration: 60
+players:
+  - Estintax:estintax
+strings:
+  prefix: "§a[TTVRewards]§f "
+  receive_reward: "{name} получил награду §6{reward_name}§f и вызвал §9{action}"
+  connected: "Вы подключены к чату §3{channel}"
