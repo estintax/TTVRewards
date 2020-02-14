@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="TTVRewards:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/TTVRewards_jar</output-path>
+    <root id="archive" name="TTVRewards.jar">
+      <element id="module-output" name="TTVRewards" />
+    </root>
+  </artifact>
+</component>
