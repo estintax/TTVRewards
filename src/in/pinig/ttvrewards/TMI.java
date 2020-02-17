@@ -32,6 +32,8 @@ public class TMI extends Thread {
             while (!sock.isClosed()) {
                 String str = in.readLine();
                 if (str == null) continue;
+                String rawTags = str.split(" :")[0];
+                str = str.replace(rawTags, "");
 
                 String[] preParseParams = str.split(" ");
                 if (preParseParams[0].equals("PING")) {
@@ -43,12 +45,12 @@ public class TMI extends Thread {
                 args[0] = args[0].replace(" ", "");
                 str = String.join(":", args);
                 String[] params = str.split(" ");
-                if (params[1].equals("PRIVMSG")) {
+                if (params.length > 2 && params[1].equals("PRIVMSG")) {
                     String channel = params[2].replace("#", "");
                     String username = args[1].split("!")[0];
                     String message = args[2];
 
-                    Map<String, String> tags = Utils.parseTags(params[0].replace("@", ""));
+                    Map<String, String> tags = Utils.parseTags(rawTags.replace("@", ""));
                     String displayName = Main.config.getBoolean("options.useDisplayName") ? tags.get("display-name") : username;
                     if (tags.get("custom-reward-id") != null) {
                         System.out.println("Found message with reward");
