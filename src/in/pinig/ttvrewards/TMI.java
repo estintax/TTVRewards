@@ -9,14 +9,15 @@ import java.util.Map;
 
 public class TMI extends Thread {
     public static Socket sock;
-
+    private static BufferedReader in;
+    private static PrintWriter out;
     @Override
     public void run() {
         System.out.println("Initializing TMI...");
         try {
             sock = new Socket("irc.chat.twitch.tv", 6667);
-            BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-            PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+            out = new PrintWriter(sock.getOutputStream(), true);
 
             // Auth, joining channels and request cap
             out.println("NICK justinfan42");
@@ -54,6 +55,7 @@ public class TMI extends Thread {
                     String displayName = Main.config.getBoolean("options.useDisplayName") ? tags.get("display-name") : username;
                     if (tags.get("custom-reward-id") != null) {
                         System.out.println("Found message with reward");
+                        RewardsHandler.handleReward(channel, username, tags.get("custom-reward-id"));
                     }
                 }
             }
@@ -64,6 +66,14 @@ public class TMI extends Thread {
         }
         catch (IOException ex) {
             ex.printStackTrace();
+        }
+        finally {
+            try {
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            out.close();
         }
     }
 }
