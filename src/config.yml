@@ -13,6 +13,7 @@ players:
   - Estintax:antoshka55
 strings:
   prefix: "§a[TTVRewards]§f "
-  receive_reward: "{name} получил награду §6{reward_name}§f и вызвал §9{action}"
+  receive_reward: "{name} получил награду §6{reward_name}"
+  receive_message: "Пожелание: §b{message}"
   connected: "Вы подключены к чату §3{channel}"
   kill: "Убийство"

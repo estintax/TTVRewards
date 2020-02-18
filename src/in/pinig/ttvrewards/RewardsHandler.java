@@ -10,7 +10,7 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.Collection;
 
 public class RewardsHandler {
-    public static void handleReward(@NotNull String channel, @NotNull String username, @NotNull String rewardId) {
+    public static void handleReward(@NotNull String channel, @NotNull String username, @NotNull String rewardId, String message) {
         Player player = null;
         Collection<? extends Player> players = Bukkit.getOnlinePlayers();
         for (Player x: players) {
@@ -26,7 +26,6 @@ public class RewardsHandler {
                 System.err.println("Reward " + Main.config.getString("rewards." + rewardId + ".name") + " (" + rewardId + ") + exist, but not have action");
                 return;
             }
-            String actionStr = "";
 
             switch(action) {
                 case "effect":
@@ -43,15 +42,17 @@ public class RewardsHandler {
                         System.err.println("Potion effect "+ effectId + " is not exists.");
                         return;
                     }
-                    actionStr = effectType.getName();
 
                     player.addPotionEffect(new PotionEffect(effectType, duration, amplifier));
                     break;
                 default:
                     System.err.println("Unknown action \"" + action + "\"");
+                    return;
             }
 
-            player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.receive_reward").replace("{name}", username).replace("{reward_name}", Main.config.getString("rewards." + rewardId + ".name")).replace("{action}", actionStr));
+            player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.receive_reward").replace("{name}", username).replace("{reward_name}", Main.config.getString("rewards." + rewardId + ".name")));
+            if(message != null)
+                player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.receive_message").replace("{message}", message));
         }
     }
 }

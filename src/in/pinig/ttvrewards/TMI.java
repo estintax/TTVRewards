@@ -1,5 +1,7 @@
 package in.pinig.ttvrewards;
 
+import com.sun.istack.internal.NotNull;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,11 +9,24 @@ import java.io.PrintWriter;
 import java.net.*;
 import java.util.Map;
 
-public class TMI extends Thread {
+interface Callback {
+    void onRewardReceived(@NotNull String channel, @NotNull String username, @NotNull String reward, String message);
+}
+
+public class TMI implements Runnable {
     public static Socket sock;
     private static BufferedReader in;
     private static PrintWriter out;
-    @Override
+    Callback call;
+
+    Thread thread;
+    TMI(Callback c) {
+        this.call = c;
+
+        thread = new Thread(this, "TMI");
+        thread.start();
+    }
+
     public void run() {
         System.out.println("Initializing TMI...");
         try {
@@ -55,7 +70,8 @@ public class TMI extends Thread {
                     String displayName = Main.config.getBoolean("options.useDisplayName") ? tags.get("display-name") : username;
                     if (tags.get("custom-reward-id") != null) {
                         System.out.println("Found message with reward");
-                        RewardsHandler.handleReward(channel, username, tags.get("custom-reward-id"));
+                        //RewardsHandler.handleReward(channel, displayName, tags.get("custom-reward-id"));
+                        this.call.onRewardReceived(channel, displayName, tags.get("custom-reward-id"), message);
                     }
                 }
             }

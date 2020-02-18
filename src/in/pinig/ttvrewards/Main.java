@@ -1,5 +1,6 @@
 package in.pinig.ttvrewards;
 
+import com.sun.istack.internal.NotNull;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -24,8 +25,8 @@ public class Main extends JavaPlugin {
         joinedChannels = new ArrayList<>();
 
         Utils.loadChannelsFromConfig();
-        Thread thread = new TMI();
-        thread.start();
+        Callback c = this::onRewardReceived;
+        TMI tmi = new TMI(c);
 
         System.err.println("Warning! This is currently experimental plugin");
         System.err.println("Find a bug? Send it to pinigin(at)mapicom.ru");
@@ -39,5 +40,9 @@ public class Main extends JavaPlugin {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void onRewardReceived(@NotNull String channel, @NotNull String username, @NotNull String reward, String message) {
+        RewardsHandler.handleReward(channel, username, reward, message);
     }
 }
