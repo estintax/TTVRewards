@@ -30,7 +30,7 @@ public class Main extends JavaPlugin {
 
         System.err.println("Warning! This is currently experimental plugin");
         System.err.println("Find a bug? Send it to pinigin(at)mapicom.ru");
-        System.out.println("Based on ttvmc v1.3.2");
+        System.out.println("Based on ttvmc v1.3.2.1");
     }
 
     @Override
