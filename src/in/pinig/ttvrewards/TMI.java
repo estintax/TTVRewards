@@ -9,22 +9,14 @@ import java.io.PrintWriter;
 import java.net.*;
 import java.util.Map;
 
-interface Callback {
-    void onRewardReceived(@NotNull String channel, @NotNull String username, @NotNull String reward, String message);
-}
-
 public class TMI implements Runnable {
     public static Socket sock;
     private static BufferedReader in;
     private static PrintWriter out;
-    Callback call;
 
-    Thread thread;
+    Callback call;
     TMI(Callback c) {
         this.call = c;
-
-        thread = new Thread(this, "TMI");
-        thread.start();
     }
 
     public void run() {
@@ -71,7 +63,7 @@ public class TMI implements Runnable {
                     if (tags.get("custom-reward-id") != null) {
                         System.out.println("Found message with reward");
                         //RewardsHandler.handleReward(channel, displayName, tags.get("custom-reward-id"));
-                        this.call.onRewardReceived(channel, displayName, tags.get("custom-reward-id"), message);
+                        this.call.call(channel, displayName, tags.get("custom-reward-id"), message);
                     }
                 }
             }
