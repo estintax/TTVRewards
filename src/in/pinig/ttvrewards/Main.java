@@ -24,6 +24,7 @@ public class Main extends JavaPlugin {
         config = getConfig();
 
         this.getServer().getPluginManager().registerEvents(new Events(), this);
+        this.getCommand("ttvrewards").setExecutor(new Commands());
 
         channels = new HashMap<>();
         joinedChannels = new ArrayList<>();
