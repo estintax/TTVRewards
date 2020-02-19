@@ -5,7 +5,7 @@ rewards:
     action: effect
     effect:
       id: slow
-      duration: 60
+      duration: 600 # SECONDS*20
       amplifier: 2
 options:
   useDisplayName: true
