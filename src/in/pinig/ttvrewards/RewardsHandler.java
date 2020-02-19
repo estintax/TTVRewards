@@ -2,6 +2,9 @@ package in.pinig.ttvrewards;
 
 import com.sun.istack.internal.NotNull;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -57,6 +60,28 @@ public class RewardsHandler extends BukkitRunnable {
                     }
 
                     player.addPotionEffect(new PotionEffect(effectType, duration, amplifier));
+                    break;
+                case "kill":
+                    player.setHealth(0.0);
+                    break;
+                case "spawn":
+                    String mobName = Main.config.getString("rewards." + rewardId + ".spawn.mob", null);
+                    if(mobName == null) {
+                        player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_missarg").replace("{reward_name}", Main.config.getString("rewards." + rewardId + ".name")));
+                        return;
+                    }
+
+                    try {
+                        EntityType entityType = EntityType.valueOf(mobName.toUpperCase());
+
+                        Location playerLoc = player.getLocation();
+                        playerLoc.setY(playerLoc.getY()+1.0);
+                        playerLoc.setZ(playerLoc.getX()+2.0);
+                        player.getWorld().spawnEntity(playerLoc, entityType);
+                    } catch(IllegalArgumentException ex) {
+                        player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_unknownmob").replace("{mob_name}", mobName));
+                        ex.printStackTrace();
+                    }
                     break;
                 default:
                     System.err.println("Unknown action \"" + action + "\"");

@@ -16,4 +16,5 @@ strings:
   receive_reward: "{name} получил награду §6{reward_name}"
   receive_message: "Пожелание: §b{message}"
   connected: "Вы подключены к чату §3{channel}"
-  kill: "Убийство"
+  err_missarg: "§c[Ошибка] §6{reward_name} не содержит нужных параметров"
+  err_unknownmob: "§c[Ошибка]§f Существо с именем §3{mob_name}§f не существует"
