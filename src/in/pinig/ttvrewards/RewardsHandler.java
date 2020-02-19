@@ -5,12 +5,25 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 
 import java.util.Collection;
 
-public class RewardsHandler {
-    public static void handleReward(@NotNull String channel, @NotNull String username, @NotNull String rewardId, String message) {
+public class RewardsHandler extends BukkitRunnable {
+    String username;
+    String channel;
+    String rewardId;
+    String message;
+
+    RewardsHandler(@NotNull String channel, @NotNull String username, @NotNull String rewardId, String message) {
+        this.username = username;
+        this.channel = channel;
+        this.rewardId = rewardId;
+        this.message = message;
+    }
+
+    public void run() {
         Player player = null;
         Collection<? extends Player> players = Bukkit.getOnlinePlayers();
         for (Player x: players) {

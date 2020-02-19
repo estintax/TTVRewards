@@ -1,7 +1,5 @@
 package in.pinig.ttvrewards;
 
-import com.sun.istack.internal.NotNull;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -62,7 +60,6 @@ public class TMI implements Runnable {
                     String displayName = Main.config.getBoolean("options.useDisplayName") ? tags.get("display-name") : username;
                     if (tags.get("custom-reward-id") != null) {
                         System.out.println("Found message with reward");
-                        //RewardsHandler.handleReward(channel, displayName, tags.get("custom-reward-id"));
                         this.call.call(channel, displayName, tags.get("custom-reward-id"), message);
                     }
                 }

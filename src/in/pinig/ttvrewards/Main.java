@@ -1,6 +1,5 @@
 package in.pinig.ttvrewards;
 
-import com.sun.istack.internal.NotNull;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -11,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 interface Callback {
-        public void call(String channel, String username, String reward, String message);
+    public void call(String channel, String username, String reward, String message);
 }
 
 public class Main extends JavaPlugin {
@@ -33,7 +32,7 @@ public class Main extends JavaPlugin {
         Callback c = new Callback() {
             @Override
             public void call(String channel, String username, String reward, String message) {
-                RewardsHandler.handleReward(channel, username, reward, message);
+                new RewardsHandler(channel, username, reward, message).runTask(Main.this);
             }
         };
         Bukkit.getScheduler().runTaskAsynchronously(this, new TMI(c));
@@ -50,9 +49,5 @@ public class Main extends JavaPlugin {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private void onRewardReceived(@NotNull String channel, @NotNull String username, @NotNull String reward, String message) {
-        RewardsHandler.handleReward(channel, username, reward, message);
     }
 }
