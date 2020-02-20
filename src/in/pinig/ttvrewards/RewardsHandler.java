@@ -83,6 +83,23 @@ public class RewardsHandler extends BukkitRunnable {
                         ex.printStackTrace();
                     }
                     break;
+                case "jump":
+                    int min = Main.config.getInt("rewards." + rewardId + ".jump.min", -1);
+                    int max = Main.config.getInt("rewards." + rewardId + ".jump.max", -1);
+                    if(min == -1 || max == -1) {
+                        player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_missarg").replace("{reward_name}", Main.config.getString("rewards." + rewardId + ".name")));
+                        return;
+                    }
+
+                    Location location = player.getLocation();
+                    // From https://javarush.ru/groups/posts/1256-generacija-sluchaynogo-chisla-v-zadannom-diapazone
+                    max -= min;
+                    int randomed = (int) (Math.random() * ++max) + min;
+                    // ---
+
+                    location.setY(location.getY()+randomed);
+                    player.teleport(location);
+                    break;
                 default:
                     System.err.println("Unknown action \"" + action + "\"");
                     return;
