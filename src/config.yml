@@ -16,7 +16,7 @@ strings:
   receive_reward: "{name} получил награду §6{reward_name}"
   receive_message: "Пожелание: §b{message}"
   connected: "Вы подключены к чату §3{channel}"
-  err_missarg: "§c[Ошибка] §6{reward_name} не содержит нужных параметров"
+  err_missarg: "§c[Ошибка] §6{reward_name}§f не содержит нужных параметров"
   err_unknownmob: "§c[Ошибка]§f Существо с именем §3{mob_name}§f не существует"
   cmd_usage: "Используйте: /ttvrewards [reload|about]"
   cmd_usage_reload: " reload - перезагружает файл конфигурации"
