@@ -7,6 +7,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 public class Commands implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if(!sender.isOp()) return true;
         if(!label.equals("ttvrewards")) return true;
         if(args.length > 0) {
             switch(args[0]) {
@@ -21,6 +22,9 @@ public class Commands implements CommandExecutor {
                     sender.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.cmd_version") + desc.getVersion());
                     sender.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.cmd_author") + desc.getAuthors());
                     sender.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.cmd_description") + desc.getDescription());
+                    break;
+                case "test":
+                    new RewardsHandler("antoshka55", "Estintax", "8dfd50fa-8df8-497e-8f00-581306625691", "Test").runTask(Main.getPlugin(Main.class));
                     break;
             }
             return true;
