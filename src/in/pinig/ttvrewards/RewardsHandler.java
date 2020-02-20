@@ -76,7 +76,7 @@ public class RewardsHandler extends BukkitRunnable {
 
                         Location playerLoc = player.getLocation();
                         playerLoc.setY(playerLoc.getY()+1.0);
-                        playerLoc.setZ(playerLoc.getX()+2.0);
+                        playerLoc.setZ(playerLoc.getZ()+2.0);
                         player.getWorld().spawnEntity(playerLoc, entityType);
                     } catch(IllegalArgumentException ex) {
                         player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_unknownmob").replace("{mob_name}", mobName));
