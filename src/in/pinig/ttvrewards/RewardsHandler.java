@@ -39,10 +39,12 @@ public class RewardsHandler extends BukkitRunnable {
         }
         if(player == null) return;
 
-        if (Main.config.getString("rewards." + rewardId + ".name", null) != null) {
+        String rewardName = Main.config.getString("rewards." + rewardId + ".name", null);
+
+        if (rewardName != null) {
             String action = Main.config.getString("rewards." + rewardId + ".action", null);
             if(action == null) {
-                System.err.println("Reward " + Main.config.getString("rewards." + rewardId + ".name") + " (" + rewardId + ") + exist, but not have action");
+                System.err.println("Reward " + rewardName + " (" + rewardId + ") + exist, but not have action");
                 return;
             }
 
@@ -52,7 +54,7 @@ public class RewardsHandler extends BukkitRunnable {
                     int duration = Main.config.getInt("rewards." + rewardId + ".effect.duration", 0);
                     int amplifier = Main.config.getInt("rewards." + rewardId + ".effect.amplifier", 0);
                     if(effectId == null || duration == 0 || amplifier == 0) {
-                        System.err.println("Reward " + Main.config.getString("rewards." + rewardId + ".name") + " (" + rewardId + ") + exist and have action, but not have effect options");
+                        System.err.println("Reward " + rewardName + " (" + rewardId + ") + exist and have action, but not have effect options");
                         return;
                     }
 
@@ -70,7 +72,7 @@ public class RewardsHandler extends BukkitRunnable {
                 case "spawn":
                     String mobName = Main.config.getString("rewards." + rewardId + ".spawn.mob", null);
                     if(mobName == null) {
-                        player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_missarg").replace("{reward_name}", Main.config.getString("rewards." + rewardId + ".name")));
+                        player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_missarg").replace("{reward_name}", rewardName));
                         return;
                     }
 
@@ -90,7 +92,7 @@ public class RewardsHandler extends BukkitRunnable {
                     int min = Main.config.getInt("rewards." + rewardId + ".jump.min", -1);
                     int max = Main.config.getInt("rewards." + rewardId + ".jump.max", -1);
                     if(min == -1 || max == -1) {
-                        player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_missarg").replace("{reward_name}", Main.config.getString("rewards." + rewardId + ".name")));
+                        player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_missarg").replace("{reward_name}", rewardName));
                         return;
                     }
 
@@ -106,7 +108,7 @@ public class RewardsHandler extends BukkitRunnable {
                 case "teleport":
                     String dest = Main.config.getString("rewards." + rewardId + ".teleport.destination", null);
                     if(dest == null) {
-                        player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_missarg").replace("{reward_name}", Main.config.getString("rewards." + rewardId + ".name")));
+                        player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_missarg").replace("{reward_name}", rewardName));
                         return;
                     }
                     if(dest.equals("random")) {
@@ -133,7 +135,7 @@ public class RewardsHandler extends BukkitRunnable {
                             Location loc = new Location(world, Integer.parseInt(locStrSplitted[1]), Integer.parseInt(locStrSplitted[2]), Integer.parseInt(locStrSplitted[3]));
                             player.teleport(loc);
                         } catch (NumberFormatException ex) {
-                            player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_missarg").replace("{reward_name}", Main.config.getString("rewards." + rewardId + ".name")));
+                            player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_missarg").replace("{reward_name}", rewardName));
                             ex.printStackTrace();
                         }
                     }
@@ -143,7 +145,7 @@ public class RewardsHandler extends BukkitRunnable {
                     return;
             }
 
-            player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.receive_reward").replace("{name}", username).replace("{reward_name}", Main.config.getString("rewards." + rewardId + ".name")));
+            player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.receive_reward").replace("{name}", username).replace("{reward_name}", rewardName));
             if(message != null)
                 player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.receive_message").replace("{message}", message));
         }
