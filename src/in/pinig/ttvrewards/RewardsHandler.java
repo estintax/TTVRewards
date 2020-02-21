@@ -44,7 +44,7 @@ public class RewardsHandler extends BukkitRunnable {
         if (rewardName != null) {
             String action = Main.config.getString("rewards." + rewardId + ".action", null);
             if(action == null) {
-                System.err.println("Reward " + rewardName + " (" + rewardId + ") + exist, but not have action");
+                player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_missaction").replace("{reward_name}", rewardName));
                 return;
             }
 
@@ -54,13 +54,13 @@ public class RewardsHandler extends BukkitRunnable {
                     int duration = Main.config.getInt("rewards." + rewardId + ".effect.duration", 0);
                     int amplifier = Main.config.getInt("rewards." + rewardId + ".effect.amplifier", 0);
                     if(effectId == null || duration == 0 || amplifier == 0) {
-                        System.err.println("Reward " + rewardName + " (" + rewardId + ") + exist and have action, but not have effect options");
+                        player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_missarg").replace("{reward_name}", rewardName));
                         return;
                     }
 
                     PotionEffectType effectType = PotionEffectType.getByName(effectId.toUpperCase());
                     if(effectType == null) {
-                        System.err.println("Potion effect "+ effectId + " is not exists.");
+                        player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_wrongeffect").replace("{effect_name}", effectId));
                         return;
                     }
 
