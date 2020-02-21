@@ -47,4 +47,11 @@ public class Utils {
 
         return result;
     }
+
+    public static int getRandomInt(int min, int max) {
+        // From https://javarush.ru/groups/posts/1256-generacija-sluchaynogo-chisla-v-zadannom-diapazone
+        max -= min;
+        return (int) (Math.random() * ++max) + min;
+        // ---
+    }
 }
