@@ -1,8 +1,10 @@
 package in.pinig.ttvrewards;
 
 import com.sun.istack.internal.NotNull;
+import com.sun.org.apache.xerces.internal.xs.StringList;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -12,6 +14,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 
 import java.util.Collection;
+import java.util.List;
 
 public class RewardsHandler extends BukkitRunnable {
     String username;
@@ -92,13 +95,48 @@ public class RewardsHandler extends BukkitRunnable {
                     }
 
                     Location location = player.getLocation();
-                    // From https://javarush.ru/groups/posts/1256-generacija-sluchaynogo-chisla-v-zadannom-diapazone
-                    max -= min;
-                    int randomed = (int) (Math.random() * ++max) + min;
-                    // ---
+                    int randomed = Utils.getRandomInt(min, max);
 
                     location.setY(location.getY()+randomed);
                     player.teleport(location);
+                    break;
+                case "tospawn":
+                    player.teleport(player.getWorld().getSpawnLocation());
+                    break;
+                case "teleport":
+                    String dest = Main.config.getString("rewards." + rewardId + ".teleport.destination", null);
+                    if(dest == null) {
+                        player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_missarg").replace("{reward_name}", Main.config.getString("rewards." + rewardId + ".name")));
+                        return;
+                    }
+                    if(dest.equals("random")) {
+                        int minX = Main.config.getInt("rewards." + rewardId + ".teleport.random.minX", -1000);
+                        int minZ = Main.config.getInt("rewards." + rewardId + ".teleport.random.minZ", 1000);
+                        int maxX = Main.config.getInt("rewards." + rewardId + ".teleport.random.maxX", -1000);
+                        int maxZ = Main.config.getInt("rewards." + rewardId + ".teleport.random.maxZ", 1000);
+                        int x = Utils.getRandomInt(minX, maxX);
+                        int z = Utils.getRandomInt(minZ, maxZ);
+                        int y = player.getWorld().getHighestBlockYAt(x, z)+1;
+                        Location loc = new Location(player.getWorld(), x, y, z);
+                        player.teleport(loc);
+                    } else if(dest.equals("list")) {
+                        List<String> locations = Main.config.getStringList("rewards." + rewardId + ".teleport.locations");
+                        String locStr = locations.get(Utils.getRandomInt(0, locations.size()));
+                        String[] locStrSplitted = locStr.split(",");
+                        World world = Bukkit.getWorld(locStrSplitted[0]);
+                        if(world == null) {
+                            player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_wrongworld").replace("{world_name}", locStrSplitted[0]));
+                            return;
+                        }
+
+                        try {
+                            Location loc = new Location(world, Integer.parseInt(locStrSplitted[1]), Integer.parseInt(locStrSplitted[2]), Integer.parseInt(locStrSplitted[3]));
+                            player.teleport(loc);
+                        } catch (NumberFormatException ex) {
+                            player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_missarg").replace("{reward_name}", Main.config.getString("rewards." + rewardId + ".name")));
+                            ex.printStackTrace();
+                        }
+                    }
                     break;
                 default:
                     System.err.println("Unknown action \"" + action + "\"");

@@ -18,6 +18,7 @@ strings:
   connected: "Вы подключены к чату §3{channel}"
   err_missarg: "§c[Ошибка] §6{reward_name}§f не содержит нужных параметров"
   err_unknownmob: "§c[Ошибка]§f Существо с именем §3{mob_name}§f не существует"
+  err_wrongmob: "§c[Ошибка]§f Мир §3{world_name}§f не существует"
   cmd_usage: "Используйте: /ttvrewards [reload|about]"
   cmd_usage_reload: " reload - перезагружает файл конфигурации"
   cmd_usage_about: " about - краткая информация о плагине"
