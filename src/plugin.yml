@@ -3,7 +3,11 @@ main: in.pinig.ttvrewards.Main
 description: Use channel points rewards to interact with MC world
 version: "0.1"
 author: Estintax
+permissions:
+  ttvrewards.manage:
+    description: Allows to reload plugin and read about information
 commands:
   ttvrewards:
     description: Various sub-commands for managing TTVRewards
     usage: /ttvrewards [reload|about]
+    permission: ttvrewards.manage

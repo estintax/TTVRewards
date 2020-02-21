@@ -7,7 +7,6 @@ import org.bukkit.plugin.PluginDescriptionFile;
 public class Commands implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(!sender.isOp()) return true;
         if(!label.equals("ttvrewards")) return true;
         if(args.length > 0) {
             switch(args[0]) {
