@@ -88,6 +88,7 @@ public class RewardsHandler extends BukkitRunnable {
                     } catch(IllegalArgumentException ex) {
                         player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_unknownmob").replace("{mob_name}", mobName));
                         ex.printStackTrace();
+                        return;
                     }
                     break;
                 case "jump":
