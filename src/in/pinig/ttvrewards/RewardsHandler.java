@@ -188,7 +188,7 @@ public class RewardsHandler extends BukkitRunnable {
                     playerWorld.getBlockAt(coords[0], coords[1], coords[2]).setType(type);
                     break;
                 default:
-                    System.err.println("Unknown action \"" + action + "\"");
+                    player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_unknownaction").replace("{reward_name}", rewardName));
                     return;
             }
 

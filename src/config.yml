@@ -18,6 +18,7 @@ strings:
   connected: "Вы подключены к чату §3{channel}"
   err_missaction: "§c[Ошибка]§f В награде §6{reward_name}§f не указано действие"
   err_missarg: "§c[Ошибка] §6{reward_name}§f не содержит нужных параметров"
+  err_unknownaction: "§c[Ошибка]§f Действие в награде §6{reward_name}§f не существует"
   err_unknownmob: "§c[Ошибка]§f Существо с именем §3{mob_name}§f не существует"
   err_unknownitem: "§c[Ошибка]§f Предмет §3{item_name}§f не существует"
   err_wrongworld: "§c[Ошибка]§f Мир §3{world_name}§f не существует"
