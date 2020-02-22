@@ -187,6 +187,17 @@ public class RewardsHandler extends BukkitRunnable {
                     coords[1] = playerWorld.getHighestBlockYAt(coords[0], coords[2])+1;
                     playerWorld.getBlockAt(coords[0], coords[1], coords[2]).setType(type);
                     break;
+                case "damage":
+                    int minimal = Main.config.getInt("rewards." + rewardId + ".damage.min", -1);
+                    int maximal = Main.config.getInt("rewards." + rewardId + ".damage.max", -1);
+                    if(minimal == -1 || maximal == -1) {
+                        player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_missarg").replace("{reward_name}", rewardName));
+                        return;
+                    }
+
+                    int damage = Utils.getRandomInt(minimal, maximal);
+                    player.damage(damage);
+                    break;
                 default:
                     player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_unknownaction").replace("{reward_name}", rewardName));
                     return;
