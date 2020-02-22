@@ -163,6 +163,30 @@ public class RewardsHandler extends BukkitRunnable {
                     itemStack.setAmount(amount);
                     player.getInventory().addItem(itemStack);
                     break;
+                case "block":
+                    String blockName = Main.config.getString("rewards." + rewardId + ".block.id", null);
+                    if(blockName == null) {
+                        player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_missarg").replace("{reward_name}", rewardName));
+                        return;
+                    }
+
+                    Material type = null;
+                    try {
+                        type = Material.valueOf(blockName.toUpperCase());
+                    } catch (IllegalArgumentException ex) {
+                        player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_unknownitem").replace("{item_name}", blockName));
+                        ex.printStackTrace();
+                        return;
+                    }
+
+                    Location playerLoc = player.getLocation();
+                    World playerWorld = player.getWorld();
+                    int[] coords = new int[3];
+                    coords[0] = (int) Math.round(playerLoc.getX())+2;
+                    coords[2] = (int) Math.round(playerLoc.getZ());
+                    coords[1] = playerWorld.getHighestBlockYAt(coords[0], coords[2])+1;
+                    playerWorld.getBlockAt(coords[0], coords[1], coords[2]).setType(type);
+                    break;
                 default:
                     System.err.println("Unknown action \"" + action + "\"");
                     return;
