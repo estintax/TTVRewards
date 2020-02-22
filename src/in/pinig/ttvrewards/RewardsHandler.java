@@ -4,10 +4,12 @@ import com.sun.istack.internal.NotNull;
 import com.sun.org.apache.xerces.internal.xs.StringList;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -139,6 +141,27 @@ public class RewardsHandler extends BukkitRunnable {
                             ex.printStackTrace();
                         }
                     }
+                    break;
+                case "give":
+                    String item = Main.config.getString("rewards." + rewardId + ".give.id", null);
+                    int amount = Main.config.getInt("rewards." + rewardId + ".give.amount", -1);
+                    if(item == null || amount == -1) {
+                        player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_missarg").replace("{reward_name}", rewardName));
+                        return;
+                    }
+
+                    Material material = null;
+                    try {
+                        material = Material.valueOf(item.toUpperCase());
+                    } catch (IllegalArgumentException ex) {
+                        player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_unknownitem").replace("{item_name}", item));
+                        ex.printStackTrace();
+                        return;
+                    }
+
+                    ItemStack itemStack = new ItemStack(material);
+                    itemStack.setAmount(amount);
+                    player.getInventory().addItem(itemStack);
                     break;
                 default:
                     System.err.println("Unknown action \"" + action + "\"");
