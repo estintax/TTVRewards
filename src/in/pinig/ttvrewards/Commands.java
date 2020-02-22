@@ -23,7 +23,14 @@ public class Commands implements CommandExecutor {
                     sender.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.cmd_description") + desc.getDescription());
                     break;
                 case "test":
-                    new RewardsHandler("antoshka55", "Estintax", "8dfd50fa-8df8-497e-8f00-581306625691", "Test").runTask(Main.getPlugin(Main.class));
+                    if(args.length > 2) {
+                        String channel = args[1];
+                        String reward = args[2];
+                        sender.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.cmd_test_execute"));
+                        new RewardsHandler(channel, "kraken_test_user", reward, "Reward testing").runTask(Main.getPlugin(Main.class));
+                    } else {
+                        sender.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.cmd_usage_test_in"));
+                    }
                     break;
             }
             return true;
@@ -31,6 +38,7 @@ public class Commands implements CommandExecutor {
             sender.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.cmd_usage"));
             sender.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.cmd_usage_reload"));
             sender.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.cmd_usage_about"));
+            sender.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.cmd_usage_test"));
             return true;
         }
     }
