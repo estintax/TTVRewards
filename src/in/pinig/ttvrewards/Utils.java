@@ -27,7 +27,7 @@ public class Utils {
         List<String> playerToChannel = Main.config.getStringList("players");
         for (String x: playerToChannel) {
             if(!x.contains(":")) {
-                System.err.println("TTVRewards config: line \"" + x + "\" is incorrect");
+                System.err.println("[TTVRewards] TTVRewards config: line \"" + x + "\" is incorrect");
                 continue;
             }
 

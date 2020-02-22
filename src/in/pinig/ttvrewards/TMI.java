@@ -18,7 +18,7 @@ public class TMI implements Runnable {
     }
 
     public void run() {
-        System.out.println("Initializing TMI...");
+        System.out.println("[TTVRewards] Initializing TMI...");
         try {
             sock = new Socket("irc.chat.twitch.tv", 6667);
             in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
@@ -30,7 +30,7 @@ public class TMI implements Runnable {
             for (Map.Entry<String, String> e: Main.channels.entrySet()) {
                 String channel = e.getValue();
                 if(Main.joinedChannels.contains(channel)) continue;
-                System.out.println("[ttvmc] Joining to #" + channel + " for " + e.getKey());
+                System.out.println("[TTVRewards] Joining to #" + channel + " for " + e.getKey());
                 out.println("JOIN #" + channel);
                 Main.joinedChannels.add(channel);
             }
