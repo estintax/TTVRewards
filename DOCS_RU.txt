@@ -1,6 +1,7 @@
 TTVRewards Copyright © 2020 Maksim Pinigin
 
-Идея или баг? Отпишите на почту pinigin@mapicom.ru или в Telegram - @estintax
+Идея? Создайте новую задачу в Issues.
+Баг? Создайте новую задачу в Issues или исправьте его сами создав Pull Request, я буду крайне благодарен.
 
 Для использовании команды /ttvrewards необходимо разрешение ttvrewards.manage
 

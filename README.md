@@ -1,6 +1,10 @@
 # TTVRewards
 Experimental plugin for Bukkit. This use Channel Points rewards to interact with MC world.
 
+Russian translation is available [here](https://pastebin.com/7c0E7F1c)
+
+If you know English and Russian well, I would be happy if you translated DOCS_RU.txt
+
 ## How to build
 1. Download and install IntelliJIDEA;
 2. Clone this repository via `git clone`;
