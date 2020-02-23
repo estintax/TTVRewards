@@ -1,9 +1,15 @@
-TTVRewards Copyright (c) 2020 Maksim Pinigin
+ISC License
 
-This software is proprietary software.
-At any time this software can become open source.
-The user has no right to distribute and / or modify this software.
-This software is distributed as is, the developer does not bear any responsibility for the use of this software.
-The developer, who has access to the source code of this software, has no right to reveal it for those who are not a developer.
-This license may be modified at any time. The copyright holder has the right not to accept license modifications.
-The right holder has the right to change this license as he pleases.
+Copyright (c) 2020, Maksim Pinigin
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
