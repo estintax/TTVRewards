@@ -1,7 +1,7 @@
 ---
 rewards:
   8dfd50fa-8df8-497e-8f00-581306625691:
-    name: Замедление
+    name: Slowness
     action: effect
     effect:
       id: slow
@@ -13,23 +13,23 @@ players:
   - Estintax:antoshka55
 strings:
   prefix: "§a[TTVRewards]§f "
-  receive_reward: "{name} получил награду §6{reward_name}"
-  receive_message: "Пожелание: §b{message}"
-  connected: "Вы подключены к чату §3{channel}"
-  err_missaction: "§c[Ошибка]§f В награде §6{reward_name}§f не указано действие"
-  err_missarg: "§c[Ошибка] §6{reward_name}§f не содержит нужных параметров"
-  err_unknownaction: "§c[Ошибка]§f Действие в награде §6{reward_name}§f не существует"
-  err_unknownmob: "§c[Ошибка]§f Существо с именем §3{mob_name}§f не существует"
-  err_unknownitem: "§c[Ошибка]§f Предмет §3{item_name}§f не существует"
-  err_wrongworld: "§c[Ошибка]§f Мир §3{world_name}§f не существует"
-  err_wrongeffect: "§c[Ошибка]§f Эффект §3{effect_name}§f не существует"
-  cmd_usage: "Используйте: /ttvrewards [reload|about]"
-  cmd_usage_reload: " reload - перезагружает файл конфигурации"
-  cmd_usage_about: " about - краткая информация о плагине"
-  cmd_usage_test: " test - проверка награды"
-  cmd_usage_test_in: "Используйте: /ttvrewards test <канал> <ID награды>"
-  cmd_version: "Версия: "
-  cmd_author: "Автор: "
-  cmd_description: "Описание: "
-  cmd_reloaded: "Файл конфигурации перезагружен"
-  cmd_test_execute: "Вызов обработчика наград..."
+  receive_reward: "{name} receive an reward §6{reward_name}"
+  receive_message: "Message: §b{message}"
+  connected: "You are connected to the §3{channel}"
+  err_missaction: "§c[Error]§f The reward §6{reward_name}§f does not specify an action"
+  err_missarg: "§c[Error] §6{reward_name}§f does not contain the necessary parameters"
+  err_unknownaction: "§c[Error]§f The action in the award §6{reward_name}§f does not exist"
+  err_unknownmob: "§c[Error]§f A creature named §3{mob_name}§f does not exist"
+  err_unknownitem: "§c[Error]§f Item §3{item_name}§f does not exist"
+  err_wrongworld: "§c[Error]§f World §3{world_name}§f does not exist"
+  err_wrongeffect: "§c[Error]§f Effect §3{effect_name}§f does not exist"
+  cmd_usage: "Usage: /ttvrewards [reload|about]"
+  cmd_usage_reload: " reload - reloads the configuration"
+  cmd_usage_about: " about - brief information about the plugin"
+  cmd_usage_test: " test - reward testing"
+  cmd_usage_test_in: "Usage: /ttvrewards test <channel> <reward ID>"
+  cmd_version: "Version: "
+  cmd_author: "Author: "
+  cmd_description: "Description: "
+  cmd_reloaded: "The configuration file is reloaded"
+  cmd_test_execute: "Calling the reward handler..."
