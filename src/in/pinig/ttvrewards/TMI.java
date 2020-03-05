@@ -59,7 +59,6 @@ public class TMI implements Runnable {
                     Map<String, String> tags = Utils.parseTags(rawTags.replace("@", ""));
                     String displayName = Main.config.getBoolean("options.useDisplayName") ? tags.get("display-name") : username;
                     if (tags.get("custom-reward-id") != null) {
-                        System.out.println("Found message with reward");
                         this.call.call(channel, displayName, tags.get("custom-reward-id"), message);
                     }
                 }
