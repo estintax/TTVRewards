@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -43,6 +44,11 @@ public class RewardsHandler extends BukkitRunnable {
         if(player == null) return;
 
         String rewardName = Main.config.getString("rewards." + rewardId + ".name", null);
+        try {
+            message = new String(message.getBytes(), "UTF8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         if (rewardName != null) {
             String action = Main.config.getString("rewards." + rewardId + ".action", null);
@@ -74,6 +80,7 @@ public class RewardsHandler extends BukkitRunnable {
                     break;
                 case "spawn":
                     String mobName = Main.config.getString("rewards." + rewardId + ".spawn.mob", null);
+                    String mobHeadName = Main.config.getString("rewards." + rewardId + ".spawn.name", "off");
                     if(mobName == null) {
                         player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_missarg").replace("{reward_name}", rewardName));
                         return;
@@ -85,7 +92,15 @@ public class RewardsHandler extends BukkitRunnable {
                         Location playerLoc = player.getLocation();
                         playerLoc.setY(playerLoc.getY()+1.0);
                         playerLoc.setZ(playerLoc.getZ()+2.0);
-                        player.getWorld().spawnEntity(playerLoc, entityType);
+                        Entity mob = player.getWorld().spawnEntity(playerLoc, entityType);
+                        if(mobHeadName.equals("username")) {
+                            mob.setCustomName(username);
+                        } else if(mobHeadName.equals("message")) {
+                            if(mobHeadName.length() < 40)
+                                mob.setCustomName(message);
+                            else
+                                mob.setCustomName(username);
+                        }
                     } catch(IllegalArgumentException ex) {
                         player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_unknownmob").replace("{mob_name}", mobName));
                         ex.printStackTrace();
@@ -227,13 +242,7 @@ public class RewardsHandler extends BukkitRunnable {
 
             player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.receive_reward").replace("{name}", username).replace("{reward_name}", rewardName));
             if(message != null) {
-                String converted = null;
-                try {
-                    converted = new String(message.getBytes(), "UTF8");
-                } catch (UnsupportedEncodingException e) {
-                    converted = message;
-                }
-                player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.receive_message").replace("{message}", converted));
+                player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.receive_message").replace("{message}", message));
             }
         }
     }
