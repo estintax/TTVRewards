@@ -15,6 +15,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 
+import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.List;
 
@@ -225,8 +226,15 @@ public class RewardsHandler extends BukkitRunnable {
             }
 
             player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.receive_reward").replace("{name}", username).replace("{reward_name}", rewardName));
-            if(message != null)
-                player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.receive_message").replace("{message}", message));
+            if(message != null) {
+                String converted = null;
+                try {
+                    converted = new String(message.getBytes(), "UTF8");
+                } catch (UnsupportedEncodingException e) {
+                    converted = message;
+                }
+                player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.receive_message").replace("{message}", converted));
+            }
         }
     }
 }
