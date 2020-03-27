@@ -199,6 +199,26 @@ public class RewardsHandler extends BukkitRunnable {
                     int damage = Utils.getRandomInt(minimal, maximal);
                     player.damage(damage);
                     break;
+                case "drop":
+                    Boolean what = Main.config.getBoolean("rewards." + rewardId + ".drop.inventory", false);
+                    if(what) {
+                        Location loc = player.getLocation();
+                        loc.setZ(loc.getZ()+2.5);
+                        for (int i = 0; i < player.getInventory().getSize(); i++) {
+                            ItemStack curItem = player.getInventory().getItem(i);
+                            if(curItem == null) continue;
+                            player.getWorld().dropItem(loc, curItem);
+                            player.getInventory().removeItem(curItem);
+                        }
+                    } else {
+                        ItemStack curItem = player.getInventory().getItemInMainHand();
+                        if(curItem.getType().equals(Material.AIR)) return;
+                        Location loc = player.getLocation();
+                        loc.setZ(loc.getZ()+2.5);
+                        player.getWorld().dropItem(loc, curItem);
+                        player.getInventory().removeItem(curItem);
+                    }
+                    break;
                 default:
                     player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_unknownaction").replace("{reward_name}", rewardName));
                     return;
