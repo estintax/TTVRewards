@@ -38,14 +38,14 @@ public class TMI implements Runnable {
             while (!sock.isClosed()) {
                 String str = in.readLine();
                 if (str == null) continue;
-                String rawTags = str.split(" :")[0];
-                str = str.replace(rawTags, "");
-
                 String[] preParseParams = str.split(" ");
                 if (preParseParams[0].equals("PING")) {
                     out.println("PONG " + preParseParams[1]);
                     continue;
                 }
+
+                String rawTags = str.split(" :")[0];
+                str = str.replace(rawTags, "");
 
                 String[] args = str.split(":", 3);
                 args[0] = args[0].replace(" ", "");
