@@ -38,9 +38,10 @@ public class Main extends JavaPlugin {
         };
         Bukkit.getScheduler().runTaskAsynchronously(this, new TMI(c));
 
+        System.out.println("[TTVRewards] Copyright (c) 2020, Maksim Pinigin");
         System.err.println("[TTVRewards] Warning! This is currently experimental plugin");
         System.err.println("[TTVRewards] Find a bug? Send it to pinigin(at)mapicom.ru");
-        System.out.println("[TTVRewards] Based on ttvmc v1.3.2.1");
+        System.out.println("[TTVRewards] Based on ttvmc v1.3.2.3");
     }
 
     @Override
