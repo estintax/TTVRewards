@@ -10,19 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 public class Utils {
-    public static void broadcastMessageToAllPlayersWhoCanReadThis(String chan, @NotNull String message) {
-        if(chan == null) chan = "none";
-
-        Collection<? extends Player> players = Bukkit.getOnlinePlayers();
-        for(Player x: players) {
-            String channel = Main.channels.get(x.getName());
-            if(channel == null) continue;
-            if(channel.equals(chan) || chan.equals("none")) {
-                x.sendMessage(message);
-            }
-        }
-    }
-
     public static void loadChannelsFromConfig() {
         List<String> playerToChannel = Main.config.getStringList("players");
         for (String x: playerToChannel) {
