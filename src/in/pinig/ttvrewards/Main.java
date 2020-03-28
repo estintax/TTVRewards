@@ -22,6 +22,7 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
         config = getConfig();
+        Updater.updateStrings();
 
         this.getServer().getPluginManager().registerEvents(new Events(), this);
         this.getCommand("ttvrewards").setExecutor(new Commands());
