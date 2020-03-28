@@ -21,6 +21,7 @@ strings:
   err_unknownaction: "§c[Error]§f The action in the award §6{reward_name}§f does not exist"
   err_unknownmob: "§c[Error]§f A creature named §3{mob_name}§f does not exist"
   err_unknownitem: "§c[Error]§f Item §3{item_name}§f does not exist"
+  err_unknownsound: "§c[Error]§f Sound §3{sound_name}§f does not exists"
   err_wrongworld: "§c[Error]§f World §3{world_name}§f does not exist"
   err_wrongeffect: "§c[Error]§f Effect §3{effect_name}§f does not exist"
   cmd_usage: "Usage: /ttvrewards [reload|about]"

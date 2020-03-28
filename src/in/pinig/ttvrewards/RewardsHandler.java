@@ -2,10 +2,7 @@ package in.pinig.ttvrewards;
 
 import com.sun.istack.internal.NotNull;
 import com.sun.org.apache.xerces.internal.xs.StringList;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -234,6 +231,26 @@ public class RewardsHandler extends BukkitRunnable {
                         player.getWorld().dropItem(loc, curItem);
                         player.getInventory().removeItem(curItem);
                     }
+                    break;
+                case "sound":
+                    String soundString = Main.config.getString("rewards." + rewardId + ".sound.id", null);
+                    float volume = (float) Main.config.getDouble("rewards." + rewardId + ".sound.volume", 1.0);
+                    float pitch = (float) Main.config.getDouble("rewards." + rewardId + ".sound.pitch", 0.0);
+                    if(soundString == null) {
+                        player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_missarg").replace("{reward_name}", rewardName));
+                        return;
+                    }
+
+                    Sound sound;
+                    try {
+                        sound = Sound.valueOf(soundString);
+                    } catch (IllegalArgumentException ex) {
+                        player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_unknownsound").replace("{sound_name}", soundString));
+                        ex.printStackTrace();
+                        return;
+                    }
+
+                    player.playSound(player.getLocation(), sound, volume, pitch);
                     break;
                 default:
                     player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_unknownaction").replace("{reward_name}", rewardName));
