@@ -213,7 +213,7 @@ public class RewardsHandler extends BukkitRunnable {
                     player.damage(damage);
                     break;
                 case "drop":
-                    Boolean what = Main.config.getBoolean("rewards." + rewardId + ".drop.inventory", false);
+                    boolean what = Main.config.getBoolean("rewards." + rewardId + ".drop.inventory", false);
                     if(what) {
                         Location loc = player.getLocation();
                         loc.setZ(loc.getZ()+2.5);
