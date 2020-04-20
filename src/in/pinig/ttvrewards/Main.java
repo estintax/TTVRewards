@@ -17,6 +17,7 @@ public class Main extends JavaPlugin {
     public static FileConfiguration config;
     public static Map<String, String>channels;
     public static ArrayList<String> joinedChannels;
+    public static Map<String, Boolean> cooldown;
 
     @Override
     public void onEnable() {
@@ -28,6 +29,7 @@ public class Main extends JavaPlugin {
 
         channels = new HashMap<>();
         joinedChannels = new ArrayList<>();
+        cooldown = new HashMap<>();
 
         Utils.loadChannelsFromConfig();
         Callback c = new Callback() {

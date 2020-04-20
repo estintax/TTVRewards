@@ -1,7 +1,7 @@
 name: TTVRewards
 main: in.pinig.ttvrewards.Main
 description: Use channel points rewards to interact with MC world
-version: "1.0.1.2"
+version: "1.0.1.3"
 author: Estintax
 permissions:
   ttvrewards.manage:

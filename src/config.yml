@@ -24,6 +24,7 @@ strings:
   err_unknownsound: "§c[Error]§f Sound §3{sound_name}§f does not exists"
   err_wrongworld: "§c[Error]§f World §3{world_name}§f does not exist"
   err_wrongeffect: "§c[Error]§f Effect §3{effect_name}§f does not exist"
+  warn_netherfound: "§6[Warning] §fJump is disabled in nether"
   cmd_usage: "Usage: /ttvrewards [reload|about]"
   cmd_usage_reload: " reload - reloads the configuration"
   cmd_usage_about: " about - brief information about the plugin"

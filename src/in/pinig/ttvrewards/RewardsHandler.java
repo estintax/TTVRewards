@@ -3,6 +3,7 @@ package in.pinig.ttvrewards;
 import com.sun.istack.internal.NotNull;
 import com.sun.org.apache.xerces.internal.xs.StringList;
 import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -39,6 +40,10 @@ public class RewardsHandler extends BukkitRunnable {
             if(channel.equals(chan)) player = x;
         }
         if(player == null) return;
+
+        if(Main.cooldown.get(rewardId) != null) {
+            return;
+        }
 
         String rewardName = Main.config.getString("rewards." + rewardId + ".name", null);
         try {
@@ -107,15 +112,26 @@ public class RewardsHandler extends BukkitRunnable {
                 case "jump":
                     int min = Main.config.getInt("rewards." + rewardId + ".jump.min", -1);
                     int max = Main.config.getInt("rewards." + rewardId + ".jump.max", -1);
+                    boolean inNether = Main.config.getBoolean("rewards." + rewardId + ".jump.nether", false);
                     if(min == -1 || max == -1) {
                         player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_missarg").replace("{reward_name}", rewardName));
                         return;
                     }
 
                     Location location = player.getLocation();
+                    if(location.getWorld().getEnvironment() == World.Environment.NETHER && inNether == false) {
+                        player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.warn_netherfound", "§6[Warning] §fJump is disabled in nether"));
+                        return;
+                    }
                     int randomed = Utils.getRandomInt(min, max);
-
-                    location.setY(location.getY()+randomed);
+                    Block jumpedBlock = player.getWorld().getBlockAt((int) location.getX(), (int) location.getY()+randomed, (int) location.getZ());
+                    if(jumpedBlock.getType() != Material.AIR) {
+                        randomed = player.getWorld().getHighestBlockYAt((int) location.getX(), (int) location.getZ())+1;
+                        location.setY(randomed);
+                    } else {
+                        location.setY(location.getY()+randomed);
+                    }
+                    
                     player.teleport(location);
                     break;
                 case "tospawn":
@@ -255,6 +271,17 @@ public class RewardsHandler extends BukkitRunnable {
                 default:
                     player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_unknownaction").replace("{reward_name}", rewardName));
                     return;
+            }
+
+            int cooldown = Main.config.getInt("rewards." + rewardId + ".cooldown", 0);
+            if(cooldown != 0) {
+                Main.cooldown.put(rewardId, true);
+                Bukkit.getScheduler().runTaskLaterAsynchronously(Main.getPlugin(Main.class), new Runnable() {
+                    @Override
+                    public void run() {
+                        Main.cooldown.remove(rewardId);
+                    }
+                }, cooldown);
             }
 
             player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.receive_reward").replace("{name}", username).replace("{reward_name}", rewardName));
