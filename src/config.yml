@@ -16,6 +16,7 @@ strings:
   receive_reward: "{name} receive an reward §6{reward_name}"
   receive_message: "Message: §b{message}"
   connected: "You are connected to the §3{channel}"
+  kick_reason: "§cKicked because rewards received."
   err_missaction: "§c[Error]§f The reward §6{reward_name}§f does not specify an action"
   err_missarg: "§c[Error] §6{reward_name}§f does not contain the necessary parameters"
   err_unknownaction: "§c[Error]§f The action in the award §6{reward_name}§f does not exist"

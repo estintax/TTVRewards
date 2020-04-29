@@ -268,6 +268,14 @@ public class RewardsHandler extends BukkitRunnable {
 
                     player.playSound(player.getLocation(), sound, volume, pitch);
                     break;
+                case "kick":
+                    boolean messageIsAReason = Main.config.getBoolean("rewards." + rewardId + ".kick.reason", true);
+                    String reason;
+                    if(messageIsAReason) reason = message;
+                    else reason = Main.config.getString("strings.kick_reason", "§cKicked because rewards received.");
+
+                    player.kickPlayer(reason);
+                    return;
                 default:
                     player.sendMessage(Main.config.getString("strings.prefix") + Main.config.getString("strings.err_unknownaction").replace("{reward_name}", rewardName));
                     return;
